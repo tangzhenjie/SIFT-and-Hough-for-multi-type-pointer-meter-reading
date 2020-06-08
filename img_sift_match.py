@@ -99,11 +99,11 @@ def CorrectImage(queryImagePath, templateImgDir, outImg, val_num=100, threshold=
 
     # correct the query img
     corrected_img = cv2.warpPerspective(queryImage, result[0]["homography_matrix"], queryImage.shape)
-    cv2.imwrite(outImg + result[0]["template_filename"], corrected_img)
+    cv2.imwrite(outImg + queryImagePath.split("/")[-1], corrected_img)
     
     return result_tamplate_class
 if __name__ == "__main__":
-    queryImagePath = "./img_test/test3.jpg"     # the image to be corrected
+    queryImagePath = "./img_test/test1.png"     # the image to be corrected
     templateImgDir = "./template/"      # the tamplate dir
     outImg = "./img_test_corrected/"
 
