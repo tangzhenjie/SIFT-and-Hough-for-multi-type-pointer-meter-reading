@@ -75,7 +75,7 @@ def degree2num(corrected_img_path):
         poiner_degree = 360 - poiner_degree
 
     # map the degree to num
-    #return poiner_degree
+    num = 0.56 # from the map (poiner_degree to num)
 
     # for visualizing
     for i in circles_int[0, :]:
@@ -90,9 +90,9 @@ def degree2num(corrected_img_path):
     cv2.imshow("edges_resized", edges_img_resized_array)
     cv2.waitKey(0)
 
-    return poiner_degree
+    return num
 
 if __name__ == "__main__":
-    corrected_img_path = "./img_test_corrected/test1.png"
+    corrected_img_path = "../img_test_corrected/test1.png"
     degree = degree2num(corrected_img_path)
     print(degree)
