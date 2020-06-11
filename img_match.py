@@ -1,8 +1,6 @@
 import numpy as np
 import cv2
 import os
-from matplotlib import pyplot as plt
-
 
 
 def CorrectImage(queryImagePath, templateImgDir, outImg, val_num=100, threshold=90):
