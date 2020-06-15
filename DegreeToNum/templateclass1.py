@@ -9,8 +9,7 @@ def degree2num(corrected_img_path):
     :return: Instrument number
     """
     # read the image and convert to gray image
-    img = cv2.imread(corrected_img_path)
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    gray = cv2.imread(corrected_img_path, 0)
 
     # Image edge detection
     edges = cv2.Canny(gray, 50, 150, apertureSize=3)
@@ -57,7 +56,7 @@ def degree2num(corrected_img_path):
 
     # for visualizing
     x1, y1, x2, y2 = pointer_line
-    cv2.line(img, (x1, y1), (x2, y2), (0, 255, 0), 2)
+    cv2.line(gray, (x1, y1), (x2, y2), (0, 255, 0), 2)
 
     # compute the pointer degree
     pointer_grad = np.abs(x2 - x1) / np.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
@@ -86,7 +85,7 @@ def degree2num(corrected_img_path):
 
     # show the result
     cv2.imshow("edges", edges)
-    cv2.imshow("img", img)
+    cv2.imshow("img", gray)
     cv2.imshow("edges_resized", edges_img_resized_array)
     cv2.waitKey(0)
 

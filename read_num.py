@@ -13,7 +13,7 @@ def find_templateclass_using_name(class_num):
     return templateclass
 
 parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-parser.add_argument("img_path", type=str,
+parser.add_argument("--img_path", type=str, default="./img_test/test2.png",
                     help='the path of the test image')
 parser.add_argument("--template_dir", type=str, default="./template/",
                     help='the dir of template images')
