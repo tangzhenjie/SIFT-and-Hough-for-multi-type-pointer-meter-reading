@@ -48,16 +48,41 @@ def degree2num(corrected_img_path):
     # Image edge detection
     edges = cv2.Canny(img_rectangele_cut_blurred, 100, 150, apertureSize=3)
     # detect the lines
-    minLineLength = 120
-    maxLineGap = 10
-    lines = cv2.HoughLinesP(edges, 1, np.pi / 180, 100, minLineLength, maxLineGap).squeeze(1)
+    minLineLength = 300
+    maxLineGap = 25
+    lines = cv2.HoughLinesP(edges, 1, np.pi / 180, 30, minLineLength, maxLineGap).squeeze(1)
+
+    # to show
+    current_lines = []
+    for x1, y1, x2, y2 in lines:
+        # remove the surrounding lines
+        if y2 - y1 > 10:
+            if x1 > 10 and x1 < img_rectangele_cut.shape[0] - 10:  # !!!!! can change
+                current_lines.append((x1, y1, x2, y2))
+                # for show
+                cv2.line(img_rectangele_cut_blurred, (x1, y1), (x2, y2), (0, 0, 255), 2)
+
+    # compute the pointer degree
+    x1, y1, x2, y2 = current_lines[0]
+    pointer_grad = np.abs(x2 - x1) / np.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
+    poiner_degree = np.arccos(pointer_grad) / np.pi * 180
+
+    if y2 > y1:
+        poiner_degree = 180 - poiner_degree
+
+    # map the degree to num
+    num = 0.33  # from the map (poiner_degree to num)
+
     # to show
     for key in range(len(rectangle["cant"])):
         cv2.drawContours(resized_gray, rectangle["cant"], key, (0, 255, 0), 3)
 
-    cv2.imshow("gray1", img)
-    cv2.imshow("gray", edges)
+    #cv2.imshow("gray0", resized_gray)
+    #cv2.imshow("gray1", img)
+    #cv2.imshow("gray2", edges)
+    cv2.imshow("gray3", img_rectangele_cut_blurred)
     cv2.waitKey(0)
+    return num
 
 if __name__ == "__main__":
     degree2num("../template/class2.png")
