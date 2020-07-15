@@ -45,5 +45,7 @@ python read_num.py $your_test_img_path
 ## Result
 ![](./picture/example.jpg)
 
+![](./picture/result2.jpg)
+
 
 
